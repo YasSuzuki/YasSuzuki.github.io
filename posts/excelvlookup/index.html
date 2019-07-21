@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  【Excel】vlookup、Match速いのはどれ？ &ndash; 営業と効率化についてのnote
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="Excelのvlookup関数とmatch＋index関数どちらが早いのか試してみる。
+vlookupについて 検索値に対応するテーブル内の値を取得する関数。 例えば、従業員IDをKeyにして従業員名を検索するなど利用機会は多い。
+=VLOOKUP（検索値, 検索対象テーブル, 列番号, 検索の型）  便利なvlookupですが制約条件やテーブルの大きさ次第では「応答なし」を頻発させる原因になることも。 match＋index関数の組み合わせでもvlookupと同じ結果を得ることができる。
+vlookupメリット  ひとつの関数で簡潔するのでシンプル ポピュラーな関数なので多数が理解しやすい  vlookupのデメリット  テーブル内の変更で再計算が発生(致命的!) テーブル列を削除すると計算エラー Key左方向の行は検索対象にできない  比較テスト それでは、vlookupとmatch＋index関数どちらが高速なのか？ 比較してみます。
+ VLOOKUP(完全一致:型FALSE)とVLOOKUP(近似一致:型TRUE)そしてIndex&#43;Match関数の3種類を比較 データは予め昇順ソートしておく データ件数が5000,50000,500000の3パターン データは1~最大値の連続値 計算実行数は50000,100000,250000,500000の4パターン ３回実行して平均値を結果とする 計算式は以下の通り。式はAutoFillでコピーする  VLOOKUP(完全一致:型FALSE) =VLOOKUP(検索値,$A:$B,2,0)  VLOOKUP(近似一致:型TRUE) =VLOOKUP(検索値,$A:$B,2,1)  INDEX&#43;MATCH関数 =INDEX($B:$B,MATCH(検索値,$A:$A,0))  結果 数値は秒(second)
+検索対象数 5000    計算行数 VLOOKUP(FALSE) VLOOKUP(TRUE) INDEX&#43;MATCH     50000 0 21 0   100000 0 42 0   250000 1 106 2   500000 5 219 10    検索対象数 50000    計算行数 VLOOKUP(FALSE) VLOOKUP(TRUE) INDEX&#43;MATCH     50000 0 20 0   100000 0 39 1   250000 1 99 3   500000 5 205 10    検索対象数 500000    計算行数 VLOOKUP(FALSE) VLOOKUP(TRUE) INDEX&#43;MATCH     50000 0 7 1   100000 1 12 2   250000 2 34 3   500000 5 74 11    1位　VLOOKUP(完全一致:型FALSE) 2位　INDEX&#43;MATCH関数 3位　VLOOKUP(近似一致:型TRUE) VLOOKUP(完全一致)が一番速いという結果ですが、2位のINDEX&#43;MATCH関数も十分速い。|">
+    
+
+    <meta name="apple-mobile-web-app-title" content="営業と効率化についてのnote">
+    
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="http://example.org/">
+    営業と効率化についてのnote
+  </a>
+
+  
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">【Excel】vlookup、Match速いのはどれ？</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/excel' class="muted-link">
+  <span class="Label Label--gray-darker">EXCEL</span>
+</a>
+
+
+
+<a href='/tags/vlookup' class="muted-link">
+  <span class="Label Label--gray">VLOOKUP</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2019-07-14. Published at: 2019-07-14.">
+        
+          Published: 2019-07-14
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    
+
+<p>Excelのvlookup関数とmatch＋index関数どちらが早いのか試してみる。</p>
+
+<h2 id="vlookupについて">vlookupについて</h2>
+
+<p>検索値に対応するテーブル内の値を取得する関数。
+例えば、従業員IDをKeyにして従業員名を検索するなど利用機会は多い。</p>
+
+<pre><code>=VLOOKUP（検索値, 検索対象テーブル, 列番号, 検索の型）
+</code></pre>
+
+<p>便利なvlookupですが制約条件やテーブルの大きさ次第では「応答なし」を頻発させる原因になることも。
+match＋index関数の組み合わせでもvlookupと同じ結果を得ることができる。</p>
+
+<h3 id="vlookupメリット">vlookupメリット</h3>
+
+<ul>
+<li>ひとつの関数で簡潔するのでシンプル</li>
+<li>ポピュラーな関数なので多数が理解しやすい</li>
+</ul>
+
+<h3 id="vlookupのデメリット">vlookupのデメリット</h3>
+
+<ol>
+<li>テーブル内の変更で再計算が発生(致命的!)</li>
+<li>テーブル列を削除すると計算エラー</li>
+<li>Key左方向の行は検索対象にできない</li>
+</ol>
+
+<h2 id="比較テスト">比較テスト</h2>
+
+<p>それでは、vlookupとmatch＋index関数どちらが高速なのか？
+比較してみます。</p>
+
+<ul>
+<li><strong>VLOOKUP(完全一致:型FALSE)</strong>と<strong>VLOOKUP(近似一致:型TRUE)</strong>そして<strong>Index+Match関数</strong>の3種類を比較</li>
+<li>データは予め昇順ソートしておく</li>
+<li>データ件数が5000,50000,500000の3パターン</li>
+<li>データは1~最大値の連続値</li>
+<li>計算実行数は50000,100000,250000,500000の4パターン</li>
+<li>３回実行して平均値を結果とする</li>
+<li>計算式は以下の通り。式はAutoFillでコピーする</li>
+</ul>
+
+<h3 id="vlookup-完全一致-型false">VLOOKUP(完全一致:型FALSE)</h3>
+
+<pre><code>=VLOOKUP(検索値,$A:$B,2,0)
+</code></pre>
+
+<h3 id="vlookup-近似一致-型true">VLOOKUP(近似一致:型TRUE)</h3>
+
+<pre><code>=VLOOKUP(検索値,$A:$B,2,1)
+</code></pre>
+
+<h3 id="index-match関数">INDEX+MATCH関数</h3>
+
+<pre><code>=INDEX($B:$B,MATCH(検索値,$A:$A,0))    
+</code></pre>
+
+<h2 id="結果">結果</h2>
+
+<p>数値は秒(second)</p>
+
+<h3 id="検索対象数-5000">検索対象数 5000</h3>
+
+<table>
+<thead>
+<tr>
+<th>計算行数</th>
+<th>VLOOKUP(FALSE)</th>
+<th>VLOOKUP(TRUE)</th>
+<th>INDEX+MATCH</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>50000</td>
+<td>0</td>
+<td>21</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>100000</td>
+<td>0</td>
+<td>42</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>250000</td>
+<td>1</td>
+<td>106</td>
+<td>2</td>
+</tr>
+
+<tr>
+<td>500000</td>
+<td>5</td>
+<td>219</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="検索対象数-50000">検索対象数 50000</h3>
+
+<table>
+<thead>
+<tr>
+<th>計算行数</th>
+<th>VLOOKUP(FALSE)</th>
+<th>VLOOKUP(TRUE)</th>
+<th>INDEX+MATCH</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>50000</td>
+<td>0</td>
+<td>20</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>100000</td>
+<td>0</td>
+<td>39</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>250000</td>
+<td>1</td>
+<td>99</td>
+<td>3</td>
+</tr>
+
+<tr>
+<td>500000</td>
+<td>5</td>
+<td>205</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="検索対象数-500000">検索対象数 500000</h3>
+
+<table>
+<thead>
+<tr>
+<th>計算行数</th>
+<th>VLOOKUP(FALSE)</th>
+<th>VLOOKUP(TRUE)</th>
+<th>INDEX+MATCH</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>50000</td>
+<td>0</td>
+<td>7</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>100000</td>
+<td>1</td>
+<td>12</td>
+<td>2</td>
+</tr>
+
+<tr>
+<td>250000</td>
+<td>2</td>
+<td>34</td>
+<td>3</td>
+</tr>
+
+<tr>
+<td>500000</td>
+<td>5</td>
+<td>74</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="1位-vlookup-完全一致-型false">1位　VLOOKUP(完全一致:型FALSE)</h4>
+
+<h4 id="2位-index-match関数">2位　INDEX+MATCH関数</h4>
+
+<h4 id="3位-vlookup-近似一致-型true">3位　VLOOKUP(近似一致:型TRUE)</h4>
+
+<p>VLOOKUP(完全一致)が一番速いという結果ですが、2位のINDEX+MATCH関数も十分速い。</p>
+
+<p>VLOOKUP(近似一致)はかなり遅く、最も差がついたテストでは<strong>VLOOKUP(完全一致)の80倍時間がかかりました</strong>。</p>
+
+<p>検索対象数の数は計算速度に影響を与えず、<strong>VLOOKUP(近似一致)に至っては検索対象が多いほど速くなる</strong>という結果。
+納得しにくい結果なので、次回条件を変えて再度試してみたい。</p>
+
+<p>ちなみに私はINDEX+MATCH関数をつかっています。
+関数入力した列をコピーするのが楽だと言う理由が一番大きいです。</p>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>【Excel】vlookup、Match速いのはどれ？</b>
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#vlookupについて">vlookupについて</a>
+<ul>
+<li><a href="#vlookupメリット">vlookupメリット</a></li>
+<li><a href="#vlookupのデメリット">vlookupのデメリット</a></li>
+</ul></li>
+<li><a href="#比較テスト">比較テスト</a>
+<ul>
+<li><a href="#vlookup-完全一致-型false">VLOOKUP(完全一致:型FALSE)</a></li>
+<li><a href="#vlookup-近似一致-型true">VLOOKUP(近似一致:型TRUE)</a></li>
+<li><a href="#index-match関数">INDEX+MATCH関数</a></li>
+</ul></li>
+<li><a href="#結果">結果</a>
+<ul>
+<li><a href="#検索対象数-5000">検索対象数 5000</a></li>
+<li><a href="#検索対象数-50000">検索対象数 50000</a></li>
+<li><a href="#検索対象数-500000">検索対象数 500000</a>
+<ul>
+<li><a href="#1位-vlookup-完全一致-型false">1位　VLOOKUP(完全一致:型FALSE)</a></li>
+<li><a href="#2位-index-match関数">2位　INDEX+MATCH関数</a></li>
+<li><a href="#3位-vlookup-近似一致-型true">3位　VLOOKUP(近似一致:型TRUE)</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+  </body>
+</html>
