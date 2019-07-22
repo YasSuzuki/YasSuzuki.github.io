@@ -18,7 +18,7 @@
       <pubDate>Sun, 14 Jul 2019 19:01:15 +0900</pubDate>
       
       <guid>https://yassuzuki.github.io/posts/excelvlookup/</guid>
-      <description>Excelのvlookup関数とmatch＋index関数どちらが早いのか試してみる。 vlookupについて 検索値に対応するテーブル内の値を</description>
+      <description>Excelのvlookup関数とmatch＋index関数どちらがより速いのか実験。 vlookupについて 検索値に対応するテーブル内の値を取</description>
     </item>
     
   </channel>

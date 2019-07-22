@@ -24,7 +24,7 @@ if (!doNotTrack) {
     </title>
     
     
-    <meta name="description" property="og:description" content="Excelのvlookup関数とmatch＋index関数どちらが早いのか試してみる。 vlookupについて 検索値に対応するテーブル内の値を|Describe what your web page is about">
+    <meta name="description" property="og:description" content="Excelのvlookup関数とmatch＋index関数どちらがより速いのか実験。 vlookupについて 検索値に対応するテーブル内の値を取|Describe what your web page is about">
     
 
     <meta name="apple-mobile-web-app-title" content="営業と効率化についてのnote">
@@ -40,7 +40,7 @@ if (!doNotTrack) {
     <meta name="twitter:site" content="@your_twitter_id">
     <meta name="twitter:creator" content="@your_twitter_id">
     <meta name="twitter:title" content="【Excel】vlookup、Match速いのはどれ？ | 営業と効率化についてのnote">
-    <meta name="twitter:description" content="Excelのvlookup関数とmatch＋index関数どちらが早いのか試してみる。 vlookupについて 検索値に対応するテーブル内の値を|Describe what your web page is about">
+    <meta name="twitter:description" content="Excelのvlookup関数とmatch＋index関数どちらがより速いのか実験。 vlookupについて 検索値に対応するテーブル内の値を取|Describe what your web page is about">
     <meta name="twitter:image" content="https://yassuzuki.github.io/twitter-card.png">
     
 
@@ -91,9 +91,9 @@ if (!doNotTrack) {
 
     
     <div class="float-md-right">
-      <span title="Lastmod: 2019-07-21. Published at: 2019-07-14.">
+      <span title="Lastmod: 2019-07-22. Published at: 2019-07-14.">
         
-          Lastmod: 2019-07-21
+          Lastmod: 2019-07-22
         
       </span>
     </div>
@@ -105,48 +105,52 @@ if (!doNotTrack) {
   <section class="pb-6 mb-3 border-bottom">
     
 
-<p>Excelのvlookup関数とmatch＋index関数どちらが早いのか試してみる。</p>
+<p>Excelのvlookup関数とmatch＋index関数どちらがより速いのか実験。</p>
 
 <h2 id="vlookupについて">vlookupについて</h2>
 
-<p>検索値に対応するテーブル内の値を取得する関数。
-例えば、従業員IDをKeyにして従業員名を検索するなど利用機会は多い。</p>
+<p>検索値に対応するテーブル内の値を取得するEXCEL関数。
+例えば、従業員IDをKeyにして従業員名を検索するときなどに使われます。</p>
 
 <pre><code>=VLOOKUP（検索値, 検索対象テーブル, 列番号, 検索の型）
 </code></pre>
 
-<p>便利なvlookupですが制約条件やテーブルの大きさ次第では「応答なし」を頻発させる原因になることも。
-match＋index関数の組み合わせでもvlookupと同じ結果を得ることができる。</p>
+<p>便利なvlookupですが使い方やテーブルの大きさ次第では「応答なし」を頻発させる原因になることも。</p>
+
+<p>個人的にvlookupの良いところ、悪いところ↓</p>
 
 <h3 id="vlookupメリット">vlookupメリット</h3>
 
-<ul>
-<li>ひとつの関数で簡潔するのでシンプル</li>
-<li>ポピュラーな関数なので多数が理解しやすい</li>
-</ul>
+<pre><code>- ひとつの関数で簡潔するのでシンプル
+- ポピュラーな関数なので多くの人が理解しやすい
+</code></pre>
 
 <h3 id="vlookupのデメリット">vlookupのデメリット</h3>
 
-<ol>
-<li>テーブル内の変更で再計算が発生(致命的!)</li>
-<li>テーブル列を削除すると計算エラー</li>
-<li>Key左方向の行は検索対象にできない</li>
-</ol>
+<pre><code>- テーブル内の変更で再計算が発生(致命的!)
+- テーブル列を削除すると計算エラー
+- Key左方向の行は検索対象にできない
+</code></pre>
+
+<p>デメリットを解決する代替案として、<code>match＋index関数</code>の組み合わせがあげられます。</p>
+
+<p>vlookupと同じ結果を得ることができるのですが、果たしてどちらが速いのでしょうか？</p>
 
 <h2 id="比較テスト">比較テスト</h2>
 
-<p>それでは、vlookupとmatch＋index関数どちらが高速なのか？
+<p>それでは、<code>vlookup関数</code>と<code>match＋index関数</code>どちらが高速なのか？
 比較してみます。</p>
 
-<ul>
-<li><strong>VLOOKUP(完全一致:型FALSE)</strong>と<strong>VLOOKUP(近似一致:型TRUE)</strong>そして<strong>Index+Match関数</strong>の3種類を比較</li>
-<li>データは予め昇順ソートしておく</li>
-<li>データ件数が5000,50000,500000の3パターン</li>
-<li>データは1~最大値の連続値</li>
-<li>計算実行数は50000,100000,250000,500000の4パターン</li>
-<li>３回実行して平均値を結果とする</li>
-<li>計算式は以下の通り。式はAutoFillでコピーする</li>
-</ul>
+<h3 id="テスト条件">テスト条件</h3>
+
+<pre><code>- VLOOKUP(完全一致:型FALSE)とVLOOKUP(近似一致:型TRUE)そしてIndex+Match関数の3種類を比較
+- データは予め昇順ソートしておく
+- データ件数が5000,50000,500000の3パターン
+- データは1~最大値の連続値
+- 計算実行数は50000,100000,250000,500000の4パターン
+- ３回実行して平均値を結果とする
+- 計算式は以下の通り。式はAutoFillでコピーする
+</code></pre>
 
 <h3 id="vlookup-完全一致-型false">VLOOKUP(完全一致:型FALSE)</h3>
 
@@ -163,11 +167,19 @@ match＋index関数の組み合わせでもvlookupと同じ結果を得ること
 <pre><code>=INDEX($B:$B,MATCH(検索値,$A:$A,0))    
 </code></pre>
 
-<h2 id="結果">結果</h2>
+<h2 id="結果は">結果は？？</h2>
 
-<p>数値は秒(second)</p>
+<p>VLOOKUP(完全一致)が一番はやい。</p>
 
-<h3 id="検索対象数-5000">検索対象数 5000</h3>
+<pre><code>1位　VLOOKUP(完全一致:型FALSE)
+2位　INDEX+MATCH関数
+3位　VLOOKUP(近似一致:型TRUE)
+</code></pre>
+
+<p>詳細のテストデータは以下の通り。
+数値は秒(second)です。</p>
+
+<h3 id="検索対象数-5000行">検索対象数 5000行</h3>
 
 <table>
 <thead>
@@ -210,7 +222,7 @@ match＋index関数の組み合わせでもvlookupと同じ結果を得ること
 </tbody>
 </table>
 
-<h3 id="検索対象数-50000">検索対象数 50000</h3>
+<h3 id="検索対象数-50000行">検索対象数 50000行</h3>
 
 <table>
 <thead>
@@ -253,7 +265,7 @@ match＋index関数の組み合わせでもvlookupと同じ結果を得ること
 </tbody>
 </table>
 
-<h3 id="検索対象数-500000">検索対象数 500000</h3>
+<h3 id="検索対象数-500000行">検索対象数 500000行</h3>
 
 <table>
 <thead>
@@ -296,21 +308,17 @@ match＋index関数の組み合わせでもvlookupと同じ結果を得ること
 </tbody>
 </table>
 
-<h4 id="1位-vlookup-完全一致-型false">1位　VLOOKUP(完全一致:型FALSE)</h4>
+<h2 id="まとめ">まとめ</h2>
 
-<h4 id="2位-index-match関数">2位　INDEX+MATCH関数</h4>
+<p><code>VLOOKUP(完全一致)</code>が一番速いという結果ですが、2位の<code>INDEX+MATCH関数</code>も十分速い。<br />
+<code>VLOOKUP(近似一致)</code>はかなり遅く、最も差がついたテストでは<strong>VLOOKUP(完全一致)の80倍</strong>の時間がかかりました。</p>
 
-<h4 id="3位-vlookup-近似一致-型true">3位　VLOOKUP(近似一致:型TRUE)</h4>
+<p>検索対象数の数は計算速度に影響を与えず、VLOOKUP(近似一致)に至っては<strong>検索対象が多いほど速くなる</strong>という不思議な結果。<br />
+納得いかないのでテストデータを変えて試してみたいところです。</p>
 
-<p>VLOOKUP(完全一致)が一番速いという結果ですが、2位のINDEX+MATCH関数も十分速い。</p>
-
-<p>VLOOKUP(近似一致)はかなり遅く、最も差がついたテストでは<strong>VLOOKUP(完全一致)の80倍時間がかかりました</strong>。</p>
-
-<p>検索対象数の数は計算速度に影響を与えず、<strong>VLOOKUP(近似一致)に至っては検索対象が多いほど速くなる</strong>という結果。
-納得しにくい結果なので、次回条件を変えて再度試してみたい。</p>
-
-<p>ちなみに私はINDEX+MATCH関数をつかっています。
-関数入力した列をコピーするのが楽だと言う理由が一番大きいです。</p>
+<p>ちなみに私は<code>INDEX+MATCH関数</code>をつかっています。<br />
+関数入力した列をコピーするのが楽だと言う理由が一番大きいです。<br />
+（VLOOKUPだと列番号を手で直したり、columns関数を使ったり工夫が必要で面倒）</p>
 
   </section>
 
@@ -340,21 +348,18 @@ match＋index関数の組み合わせでもvlookupと同じ結果を得ること
 </ul></li>
 <li><a href="#比較テスト">比較テスト</a>
 <ul>
+<li><a href="#テスト条件">テスト条件</a></li>
 <li><a href="#vlookup-完全一致-型false">VLOOKUP(完全一致:型FALSE)</a></li>
 <li><a href="#vlookup-近似一致-型true">VLOOKUP(近似一致:型TRUE)</a></li>
 <li><a href="#index-match関数">INDEX+MATCH関数</a></li>
 </ul></li>
-<li><a href="#結果">結果</a>
+<li><a href="#結果は">結果は？？</a>
 <ul>
-<li><a href="#検索対象数-5000">検索対象数 5000</a></li>
-<li><a href="#検索対象数-50000">検索対象数 50000</a></li>
-<li><a href="#検索対象数-500000">検索対象数 500000</a>
-<ul>
-<li><a href="#1位-vlookup-完全一致-型false">1位　VLOOKUP(完全一致:型FALSE)</a></li>
-<li><a href="#2位-index-match関数">2位　INDEX+MATCH関数</a></li>
-<li><a href="#3位-vlookup-近似一致-型true">3位　VLOOKUP(近似一致:型TRUE)</a></li>
+<li><a href="#検索対象数-5000行">検索対象数 5000行</a></li>
+<li><a href="#検索対象数-50000行">検索対象数 50000行</a></li>
+<li><a href="#検索対象数-500000行">検索対象数 500000行</a></li>
 </ul></li>
-</ul></li>
+<li><a href="#まとめ">まとめ</a></li>
 </ul></li>
 </ul>
 </nav>
