@@ -3,6 +3,17 @@
   <head>
     
     
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'U-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,18 +24,24 @@
     </title>
     
     
-    <meta name="description" property="og:description" content="Excelのvlookup関数とmatch＋index関数どちらが早いのか試してみる。
-vlookupについて 検索値に対応するテーブル内の値を取得する関数。 例えば、従業員IDをKeyにして従業員名を検索するなど利用機会は多い。
-=VLOOKUP（検索値, 検索対象テーブル, 列番号, 検索の型）  便利なvlookupですが制約条件やテーブルの大きさ次第では「応答なし」を頻発させる原因になることも。 match＋index関数の組み合わせでもvlookupと同じ結果を得ることができる。
-vlookupメリット  ひとつの関数で簡潔するのでシンプル ポピュラーな関数なので多数が理解しやすい  vlookupのデメリット  テーブル内の変更で再計算が発生(致命的!) テーブル列を削除すると計算エラー Key左方向の行は検索対象にできない  比較テスト それでは、vlookupとmatch＋index関数どちらが高速なのか？ 比較してみます。
- VLOOKUP(完全一致:型FALSE)とVLOOKUP(近似一致:型TRUE)そしてIndex&#43;Match関数の3種類を比較 データは予め昇順ソートしておく データ件数が5000,50000,500000の3パターン データは1~最大値の連続値 計算実行数は50000,100000,250000,500000の4パターン ３回実行して平均値を結果とする 計算式は以下の通り。式はAutoFillでコピーする  VLOOKUP(完全一致:型FALSE) =VLOOKUP(検索値,$A:$B,2,0)  VLOOKUP(近似一致:型TRUE) =VLOOKUP(検索値,$A:$B,2,1)  INDEX&#43;MATCH関数 =INDEX($B:$B,MATCH(検索値,$A:$A,0))  結果 数値は秒(second)
-検索対象数 5000    計算行数 VLOOKUP(FALSE) VLOOKUP(TRUE) INDEX&#43;MATCH     50000 0 21 0   100000 0 42 0   250000 1 106 2   500000 5 219 10    検索対象数 50000    計算行数 VLOOKUP(FALSE) VLOOKUP(TRUE) INDEX&#43;MATCH     50000 0 20 0   100000 0 39 1   250000 1 99 3   500000 5 205 10    検索対象数 500000    計算行数 VLOOKUP(FALSE) VLOOKUP(TRUE) INDEX&#43;MATCH     50000 0 7 1   100000 1 12 2   250000 2 34 3   500000 5 74 11    1位　VLOOKUP(完全一致:型FALSE) 2位　INDEX&#43;MATCH関数 3位　VLOOKUP(近似一致:型TRUE) VLOOKUP(完全一致)が一番速いという結果ですが、2位のINDEX&#43;MATCH関数も十分速い。|">
+    <meta name="description" property="og:description" content="Excelのvlookup関数とmatch＋index関数どちらが早いのか試してみる。 vlookupについて 検索値に対応するテーブル内の値を|Describe what your web page is about">
     
 
     <meta name="apple-mobile-web-app-title" content="営業と効率化についてのnote">
     
     
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
     
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@your_twitter_id">
+    <meta name="twitter:creator" content="@your_twitter_id">
+    <meta name="twitter:title" content="【Excel】vlookup、Match速いのはどれ？ | 営業と効率化についてのnote">
+    <meta name="twitter:description" content="Excelのvlookup関数とmatch＋index関数どちらが早いのか試してみる。 vlookupについて 検索値に対応するテーブル内の値を|Describe what your web page is about">
+    <meta name="twitter:image" content="https://yassuzuki.github.io/twitter-card.png">
     
 
 
@@ -39,7 +56,7 @@ vlookupメリット  ひとつの関数で簡潔するのでシンプル ポピ�
 
       <div id="header" class="px-1 bg-white">
         <nav class="UnderlineNav UnderlineNav--right px-2">
-  <a class="UnderlineNav-actions muted-link h2" href="http://example.org/">
+  <a class="UnderlineNav-actions muted-link h2" href="https://yassuzuki.github.io/">
     営業と効率化についてのnote
   </a>
 
@@ -74,9 +91,9 @@ vlookupメリット  ひとつの関数で簡潔するのでシンプル ポピ�
 
     
     <div class="float-md-right">
-      <span title="Lastmod: 2019-07-14. Published at: 2019-07-14.">
+      <span title="Lastmod: 2019-07-21. Published at: 2019-07-14.">
         
-          Published: 2019-07-14
+          Lastmod: 2019-07-21
         
       </span>
     </div>
@@ -345,9 +362,28 @@ match＋index関数の組み合わせでもvlookupと同じ結果を得ること
   
 
   
-    <div>
-      
-    </div>
+    
+    
+      <div>
+        
+          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        
+
+        
+          <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&layout=button&size=small&mobile_iframe=true&width=61&height=20&appId" width="61" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+        
+
+        
+          <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-label-counter" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+        
+
+        
+          <a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a>
+          <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+        
+
+      </div>
+    
   
 
         </aside>
@@ -357,7 +393,7 @@ match＋index関数の組み合わせでもvlookupと同じ結果を得ること
         
 
   <span class="text-small text-gray">
-    
+    &copy;Yasu Suzuki 2019 &middot; 
 
     Powered by the
     <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
