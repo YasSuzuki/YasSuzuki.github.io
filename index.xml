@@ -27,7 +27,7 @@
       <pubDate>Sun, 21 Jul 2019 12:50:41 +0900</pubDate>
       
       <guid>https://yassuzuki.github.io/posts/test2/</guid>
-      <description>これはテストサイト</description>
+      <description>これはテストサイト 文頭に&amp;gt;を置くことで引用になります。</description>
     </item>
     
     <item>
